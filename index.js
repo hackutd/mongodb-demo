@@ -10,54 +10,102 @@ async function main() {
     const db = client.db("demo");
     const users = db.collection("users");
 
-
     // ============================================
-    // 1. CREATE
+    // CREATE
     // ============================================
 
     // Insert one user
-
+    await users.insertOne({
+        name: "Alice",
+        age: 20,
+        major: "Computer Science"
+    });
 
     // Insert multiple users
-
+    await users.insertMany([
+        { name: "Bob", age: 22, major: "Computer Science" },
+        { name: "Charlie", age: 19, major: "Business" },
+        { name: "David", age: 21, major: "Engineering" }
+    ]);
 
 
     // ============================================
-    // 2. READ
+    // READ
     // ============================================
 
     // Find one user
+    const user = await users.findOne({
+        name: "Alice"
+    });
+
+    console.log(user);
 
 
     // Find all users
+    const allUsers = await users.find({}).toArray();
+
+    console.log(allUsers);
 
 
-    // Find users matching a condition
+    // Find Computer Science users
+    const csUsers = await users.find({
+        major: "Computer Science"
+    }).toArray();
 
+    console.log(csUsers);
+
+
+    // Find users older than 20
+    const usersOver20 = await users.find({
+        age: { $gt: 20 }
+    }).toArray();
+
+    console.log(usersOver20);
 
 
     // ============================================
-    // 3. UPDATE
+    // UPDATE
     // ============================================
 
-    // Update one user
+    // Update Alice's age to 21
+    await users.updateOne(
+        { name: "Alice" },
+        { $set: { age: 21 } }
+    );
 
+    const updatedUser = await users.findOne({
+        name: "Alice"
+    });
+
+    console.log(updatedUser);
 
 
     // ============================================
-    // 4. DELETE
+    // DELETE
     // ============================================
 
-    // Delete one user
+    // Delete Charlie
+    await users.deleteOne({
+        name: "Charlie"
+    });
 
+    const deletedUser = await users.findOne({
+        name: "Charlie"
+    });
+
+    console.log(deletedUser);
 
 
     // ============================================
-    // 5. CHALLENGE
+    // CHALLENGE
     // ============================================
 
     // Find all users who are 21 or older
+    const users21AndOver = await users.find({
+        age: { $gte: 21 }
+    }).toArray();
 
+    console.log(users21AndOver);
 
 
     await client.close();
