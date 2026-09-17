@@ -1,0 +1,25 @@
+{
+  "name": "mongodb-demo",
+  "version": "1.0.0",
+  "description": "MongoDB Workshop Demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackutd/mongodb-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hackutd/mongodb-demo/issues"
+  },
+  "homepage": "https://github.com/hackutd/mongodb-demo#readme",
+  "dependencies": {
+    "mongodb": "^7.6.0"
+  }
+}
