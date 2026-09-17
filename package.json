@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/hackutd/mongodb-demo#readme",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "mongodb": "^7.6.0"
   }
 }
