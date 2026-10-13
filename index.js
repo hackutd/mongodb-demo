@@ -3,7 +3,7 @@ require("dotenv").config();
 const { MongoClient } = require("mongodb");
 
 if (!process.env.MONGODB_URI) {
-    throw new Error("MONGODB_URI is not set. Copy .env.example to .env and add your connection string.");
+    throw new Error("MONGODB_URI is not set. Add it to your .env file.");
 }
 
 const client = new MongoClient(process.env.MONGODB_URI);
@@ -14,9 +14,13 @@ async function main() {
         await client.db("admin").command({ ping: 1 });
         console.log("Connected to MongoDB.");
 
+        const db = client.db("demo");
+        const users = db.collection("users");
+        await users.deleteMany({});
         // ============================================
         // 1. CREATE
         // ============================================
+
         // Insert one user
 
 
@@ -27,6 +31,7 @@ async function main() {
         // ============================================
         // 2. READ
         // ============================================
+
         // Find one user
 
 
@@ -36,7 +41,7 @@ async function main() {
         // Find users matching a condition
 
 
- 
+
         // ============================================
         // 3. UPDATE
         // ============================================
@@ -58,7 +63,6 @@ async function main() {
         // ============================================
 
         // Find all users who are 21 or older
-
 
     } finally {
         await client.close();
