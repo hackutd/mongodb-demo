@@ -2,65 +2,71 @@ require("dotenv").config();
 
 const { MongoClient } = require("mongodb");
 
+if (!process.env.MONGODB_URI) {
+    throw new Error("MONGODB_URI is not set. Copy .env.example to .env and add your connection string.");
+}
+
 const client = new MongoClient(process.env.MONGODB_URI);
 
 async function main() {
-    await client.connect();
+    try {
+        await client.connect();
+        await client.db("admin").command({ ping: 1 });
+        console.log("Connected to MongoDB.");
 
-    const db = client.db("demo");
-    const users = db.collection("users");
-
-
-    // ============================================
-    // 1. CREATE
-    // ============================================
-
-    // Insert one user
+        // ============================================
+        // 1. CREATE
+        // ============================================
+        // Insert one user
 
 
-    // Insert multiple users
+        // Insert multiple users
 
 
 
-    // ============================================
-    // 2. READ
-    // ============================================
-
-    // Find one user
-
-
-    // Find all users
+        // ============================================
+        // 2. READ
+        // ============================================
+        // Find one user
 
 
-    // Find users matching a condition
+        // Find all users
 
 
-
-    // ============================================
-    // 3. UPDATE
-    // ============================================
-
-    // Update one user
+        // Find users matching a condition
 
 
+ 
+        // ============================================
+        // 3. UPDATE
+        // ============================================
 
-    // ============================================
-    // 4. DELETE
-    // ============================================
-
-    // Delete one user
+        // Update one user
 
 
 
-    // ============================================
-    // 5. CHALLENGE
-    // ============================================
+        // ============================================
+        // 4. DELETE
+        // ============================================
 
-    // Find all users who are 21 or older
+        // Delete one user
 
 
 
-    await client.close();
+        // ============================================
+        // 5. CHALLENGE
+        // ============================================
+
+        // Find all users who are 21 or older
+
+
+    } finally {
+        await client.close();
+        console.log("MongoDB connection closed.");
+    }
 }
 
-main();
+main().catch((error) => {
+    console.error("MongoDB workshop failed:", error.message);
+    process.exitCode = 1;
+});
