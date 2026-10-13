@@ -13,6 +13,7 @@ async function main() {
         await client.connect();
         await client.db("admin").command({ ping: 1 });
         console.log("Connected to MongoDB.");
+        await users.deleteMany({});
 
         // ============================================
         // 1. CREATE
